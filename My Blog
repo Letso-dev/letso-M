@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Blog</title>
+</head>
+<body>
+<section>
+  <h2>About Me</h2>
+  <p>My name is Letso Mabeo, I am a student at Botswana School of Business Sciences (BAC) and I am studying under the course Network Systems Engineering.</p>
+</section>
+
+<section>
+  <h2>My Skills and Projects</h2>
+  <p>I have experience working with HTML and JavaScript, they are all self taught and im willing to learn and adapt to new programming languages.
+  I have only one project to showcase, it has two different variations, one is meant to fit mobile phones and the other to fit on desktop. 
+  The file names are 'SecureChat' and 'SecureChat - Desktop'.</p>
+</section>

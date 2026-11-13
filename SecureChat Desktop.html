@@ -1,0 +1,801 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#102c4c">
+    <title>SecureChat✦ - Desktop</title>
+    <style>
+      :root{
+        color-scheme: light;
+        font-family: Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+        color: #17283a;
+        background: #e9eff4;
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        --navy: #102c4c;
+        --blue: #2563eb;
+        --muted: #6e8091
+      }
+      *{
+        box-sizing: border-box
+      }
+      body{
+        margin: 0;
+        min-width: 320px;
+        min-height: 100vh;
+        background: #e9eff4
+      }
+      button,input,textarea{
+        font: inherit
+      }
+      button{
+        cursor: pointer
+      }
+      .app{
+        width: min(100%,520px);
+        height: 100dvh;
+        min-height: 540px;
+        margin: 0 auto;
+        background: #f8fafc;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 12px 50px #17283a1a
+      }
+      .screen{
+        min-height: 0;
+        flex: 1;
+        display: flex;
+        flex-direction: column
+      }
+      .topbar{
+        min-height: 68px;
+        flex: 0 0 auto;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 18px;
+        color: white;
+        background: var(--navy)
+      }
+      .brand-mark{
+        width: 36px;
+        height: 36px;
+        border-radius: 12px;
+        display: grid;
+        place-items: center;
+        background: #ffffff20;
+        font-size: 19px
+      }
+      .topbar-title{
+        min-width: 0;
+        font-weight: 700;
+        letter-spacing: .01em
+      }
+      .topbar-subtitle{
+        margin-top: 2px;
+        color: #c6d4e2;
+        font-size: 12px;
+        font-weight: 400
+      }
+      .topbar .spacer{
+        flex: 1
+      }
+      .menu-button, .back-button{
+        border: 1px solid #ffffff35;
+        color: white;
+        background: #ffffff12;
+        border-radius: 10px;
+        padding: 8px 11px;
+      }
+      .menu-button{font-size:18px;line-height:1}
+      .offline-label{color:#c6d4e2;font-size:12px}
+      .topbar{position:relative}
+      .menu-popover{
+        position:absolute;
+        z-index:5;
+        top:calc(100% - 4px);
+        right:14px;
+        width:190px;
+        padding:7px;
+        border:1px solid #e1e9ef;
+        border-radius:12px;
+        background:white;
+        box-shadow:0 12px 30px #102c4c26;
+      }
+      .menu-popover button{
+        width:100%;
+        padding:10px 11px;
+        border:0;
+        border-radius:8px;
+        color:#243b52;
+        background:transparent;
+        text-align:left;
+      }
+      .menu-popover button:hover{background:#eef4fa}
+      .menu-status{padding:8px 11px;color:#6e8091;font-size:12px;border-bottom:1px solid #e6edf2}
+      .settings-card{width:min(100%,560px);margin:30px auto;padding:24px;border:1px solid #e1e9ef;border-radius:16px;background:white}
+      .settings-card h1{margin:0;color:#102c4c;font-size:24px}
+      .settings-card .button{margin-top:8px}
+      .back-button{
+        border: 1px solid #ffffff35;
+        color: white;
+        background: #ffffff12;
+        border-radius: 10px;
+        padding: 8px 11px
+      }
+      .content{
+        flex: 1;
+        min-height: 0;
+        overflow: auto;
+        padding: 18px
+      }
+      .auth-wrap{
+        width: min(100%,390px);
+        margin: auto;
+        padding: 30px 24px
+      }
+      .auth-wrap h1{
+        margin: 4px 0 8px;
+        font-size: 27px;
+        color: var(--navy)
+      }
+      .muted{
+        color: var(--muted);
+        line-height: 1.5
+      }
+      .field{
+        display: grid;
+        gap: 7px;
+        margin: 16px 0;
+        color: #44576a;
+        font-size: 13px;
+        font-weight: 650
+      }
+      .field input,.search-input,.message-input{
+        width: 100%;
+        border: 1px solid #d6e0e8;
+        border-radius: 11px;
+        background: white;
+        color: #1728;
+        padding: 12px 13px;
+        outline: none
+      }
+      .field input:focus,.search-input:focus,.message-input:focus{
+        border-color: #6b9cff;
+        box-shadow: 0 0 0 3px #2563eb18
+      }
+      .button-row{
+        display: flex;
+        gap: 10px;
+        margin-top: 20px
+      }
+      .button{
+        min-height: 42px;
+        padding: 10px 15px;
+        border: 0;
+        border-radius: 10px;
+        background: var(--blue);
+        color: white;
+        font-weight: 700
+      }
+      .button:hover{
+        filter: brightness(.95)
+      }
+      .button.secondary{
+        color: #24415e;
+        background: #e9eff5
+      }
+      .button.full{
+        width: 100%
+      }
+      .notice{
+        margin: 16px 0 0;
+        padding: 11px 12px;
+        border-radius: 10px;
+        background: #edf5ff;
+        color: #365778;
+        font-size: 12px;
+        line-height: 1.45
+      }
+      .search-row{
+        display: flex;
+        gap: 9px;
+        margin-bottom: 20px
+      }
+      .search-input{
+        min-width: 0
+      }
+      .section-heading{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: 18px 0 10px;
+        color: #607386;
+        font-size: 12px;
+        font-weight: 750;
+        letter-spacing: .08em;
+        text-transform: uppercase
+      }
+      .chat-list{
+        display: grid;
+        gap: 8px
+      }
+      .chat-item{
+        width: 100%;
+        border: 1px solid #e6edf2;
+        border-radius: 13px;
+        padding: 12px;
+        text-align: left;
+        color: inherit;
+        background: white;
+        display: flex;
+        align-items: center;
+        gap: 11px
+      }
+      .chat-item:hover{
+        border-color: #bdcfe0;
+        background: #fcfdff
+      }
+      .avatar{
+        width: 42px;
+        height: 42px;
+        flex: 0 0 auto;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        color: #19509b;
+        background: #e7f0ff;
+        font-weight: 800
+      }
+      .chat-info{
+        min-width: 0;
+        flex: 1
+      }
+      .chat-name{
+        overflow: hidden;
+        color: #1b3044;
+        font-size: 14px;
+        font-weight: 750;
+        text-overflow: ellipsis;
+        white-space: nowrap
+      }
+      .chat-preview{
+        margin-top: 4px;
+        overflow: hidden;
+        color: #718294;
+        font-size: 12px;
+        text-overflow: ellipsis;
+        white-space: nowrap
+      }
+      .chat-meta{
+        flex: 0 0 auto;
+        color: #8090a0;
+        font-size: 11px;
+        text-align: right
+      }
+      .badge{
+        display: inline-grid;
+        min-width: 19px;
+        height: 19px;
+        margin-top: 6px;
+        place-items: center;
+        padding: 0 5px;
+        border-radius: 99px;
+        color: white;
+        background: var(--blue);
+        font-weight: 700
+      }
+      .empty{
+        padding: 20px;
+        border: 1px dashed #cbd7e1;
+        border-radius: 12px;
+        color: #6e8091;
+        text-align: center;
+        font-size: 13px
+      }
+      .bottom-bar{
+        flex: 0 0 auto;
+        padding: 10px 18px 14px;
+        border-top: 1px solid #e6edf2;
+        background: white
+      }
+      .chat-body{
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column
+      }
+      .message-list{
+        flex: 1;
+        min-height: 0;
+        overflow: auto;
+        padding: 17px;
+        background: #edf2f5
+      }
+      .message{
+        width: fit-content;
+        max-width: 82%;
+        margin: 0 0 10px;
+        padding: 9px 11px 7px;
+        border: 1px solid #e1e9ef;
+        border-radius: 13px 13px 13px 4px;
+        background: white;
+        box-shadow: 0 2px 6px #14283b08;
+        overflow-wrap: anywhere
+      }
+      .message.mine{
+        margin-left: auto;
+        border-color: #c9defe;
+        border-radius: 13px 13px 4px 13px;
+        background: #dceaff
+      }
+      .message-sender{
+        margin-bottom: 4px;
+        color: #54718c;
+        font-size: 11px;
+        font-weight: 750
+      }
+      .message-text{
+        color: #21364b;
+        font-size: 14px;
+        line-height: 1.45;
+        white-space: pre-wrap
+      }
+      .message-time{
+        margin-top: 5px;
+        color: #7b8c9b;
+        font-size: 10px;
+        text-align: right
+      }
+      .compose{
+        display: flex;
+        align-items: end;
+        gap: 9px;
+        padding: 11px;
+        border-top: 1px solid #e2eaf0;
+        background: white
+      }
+      .message-input{
+        resize: vertical;
+        max-height: 120px;
+        min-height: 44px;
+        line-height: 1.4
+      }
+      .send-button{
+        width: 44px;
+        height: 44px;
+        flex: 0 0 auto;
+        border: 0;
+        border-radius: 12px;
+        color: white;
+        background: var(--blue);
+        font-size: 18px;
+        font-weight: 800
+      }
+      .modal-backdrop{
+        position: fixed;
+        inset: 0;
+        z-index: 2;
+        display: grid;
+        place-items: center;
+        padding: 18px;
+        background: #0c1d2f77
+      }
+      .modal{
+        width: min(100%,420px);
+        padding: 20px;
+        border-radius: 16px;
+        background: white;
+        box-shadow: 0 22px 60px #07182c40
+      }
+      .modal h2{
+        margin: 0 0 6px;
+        color: var(--navy);
+        font-size: 20px
+      }
+      .modal-actions{
+        display: flex;
+        justify-content: end;
+        gap: 8px;
+        margin-top: 18px
+      }
+      @media(min-width:700px){
+        .app{
+          height: min(900px,calc(100dvh - 42px));
+          min-height: 600px;
+          margin: 21px auto;
+          border: 1px solid #d8e2e9;
+          border-radius: 20px;
+          overflow: hidden
+        }
+      }
+          .auth-content { display: grid; place-items: center; }
+      .member-option { display: flex; align-items: center; margin: 9px 0; }
+      .auth-content { display: grid; place-items: center; }
+      .member-option { display: flex; align-items: center; margin: 9px 0; }
+    
+      /* Fill the browser window at every size. */
+      .app { width: 100%; max-width: none; height: 100dvh; min-height: 100dvh; margin: 0; border: 0; border-radius: 0; box-shadow: none; }
+      @media (min-width: 700px) {
+        .content { width: min(100%, 1200px); margin-inline: auto; }
+        .chat-body { width: min(100%, 1400px); margin-inline: auto; }
+      }
+      @media (max-height: 540px) {
+        .app { min-height: 100dvh; }
+      }
+    </style>
+  </head>
+  <body>
+    <main id="app" class="app" aria-live="polite"></main>
+    <script>
+      (function () {
+        "use strict";
+      
+        const root = document.getElementById("app");
+        const state = { page: "login", user: "", chat: "", query: "", modal: false, menuOpen: false };
+      
+        function read(key, fallback) {
+          try {
+            return JSON.parse(localStorage.getItem(key)) || fallback;
+          } catch (_) {
+            return fallback;
+          }
+        }
+      
+        function save(key, value) {
+          try {
+            localStorage.setItem(key, JSON.stringify(value));
+            return true;
+          } catch (_) {
+            alert("Browser storage is unavailable. Enable site storage and try again.");
+            return false;
+          }
+        }
+      
+        const getUsers = () => read("users", {});
+        const getChats = () => {
+          const value = read("chats", []);
+          return Array.isArray(value) ? value : [];
+        };
+        const getMeta = () => read("chatMeta", {});
+        const getSeen = () => read("lastSeen", {});
+      
+        function escapeHtml(value) {
+          return String(value == null ? "" : value).replace(/[&<>"']/g, character => ({
+            "&": "&amp;",
+            "<": "&lt;",
+            ">": "&gt;",
+            '"': "&quot;",
+            "'": "&#39;"
+          })[character]);
+        }
+      
+        function initials(value) {
+          return String(value || "?").trim().slice(0, 1).toUpperCase();
+        }
+      
+        function formatTime(timestamp) {
+          if (!timestamp) return "";
+          const date = new Date(timestamp);
+          const isToday = date.toDateString() === new Date().toDateString();
+          return isToday
+            ? date.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })
+            : date.toLocaleDateString([], { month: "short", day: "numeric" });
+        }
+      
+        function messagesForChat(chatId) {
+          return getChats()
+            .filter(message => message.chatId === chatId)
+            .sort((first, second) => first.time - second.time);
+        }
+      
+        function latestMessage(chatId) {
+          return messagesForChat(chatId).slice(-1)[0];
+        }
+      
+        function markChatSeen(chatId) {
+          const allSeen = getSeen();
+          allSeen[state.user] = allSeen[state.user] || {};
+          allSeen[state.user][chatId] = Date.now();
+          save("lastSeen", allSeen);
+        }
+      
+        function unreadCount(chatId) {
+          const lastSeen = (getSeen()[state.user] || {})[chatId] || 0;
+          return messagesForChat(chatId).filter(message =>
+            message.from !== state.user && message.time > lastSeen
+          ).length;
+        }
+      
+        function privateChatId(username, allMeta) {
+          return Object.keys(allMeta).find(chatId => {
+            const chat = allMeta[chatId];
+            return chat.type === "private" &&
+              chat.members.includes(state.user) &&
+              chat.members.includes(username);
+          });
+        }
+      
+        function renderHeader(title, subtitle, showBack) {
+          const mark = showBack
+            ? '<button class="back-button" data-action="back" aria-label="Back">←</button>'
+            : '<div class="brand-mark">✦</div>';
+          const menuControl = state.user
+            ? '<button class="menu-button" type="button" data-action="toggle-menu" aria-expanded="' + state.menuOpen + '" aria-label="Open menu">☰</button>'
+            : '<div class="offline-label">Offline</div>';
+          const dropdown = state.menuOpen
+            ? '<div class="menu-popover" role="menu"><div class="menu-status">Offline</div><button type="button" role="menuitem" data-action="settings">Settings</button><button type="button" role="menuitem" data-action="logout">Log out</button></div>'
+            : '';
+          return '<header class="topbar">' + mark +
+            '<div class="topbar-title">' + escapeHtml(title) +
+            '<div class="topbar-subtitle">' + escapeHtml(subtitle) + '</div></div>' +
+            '<div class="spacer"></div>' + menuControl + dropdown + '</header>';
+        }
+
+        function renderLogin() {
+          root.innerHTML = '<section class="screen">' +
+            renderHeader("SecureChat", "Private conversations on this device", false) +
+            '<div class="content auth-content"><div class="auth-wrap">' +
+            '<h1>Welcome</h1><p class="muted">Sign in or create a local account to get started.</p>' +
+            '<form id="login-form">' +
+            '<label class="field">Username<input name="username" autocomplete="username" required maxlength="32" placeholder="Choose a username"></label>' +
+            '<label class="field">Password<input name="password" type="password" autocomplete="current-password" required></label>' +
+            '<div class="button-row"><button class="button" data-mode="login">Log in</button>' +
+            '<button class="button secondary" data-mode="register">Create account</button></div></form>' +
+            '<div class="notice">Accounts and messages stay in this browser. The app works offline, but chats do not sync to other devices.</div>' +
+            '</div></div></section>';
+        }
+      
+        function renderSettings() {
+          root.innerHTML = '<section class="screen">' +
+            renderHeader("Settings", "Update your account password", true) +
+            '<div class="content"><div class="settings-card">' +
+            '<h1>Change password</h1>' +
+            '<p class="muted">Enter your current password, then choose a new one.</p>' +
+            '<form id="password-form">' +
+            '<label class="field">Current password<input name="currentPassword" type="password" autocomplete="current-password" required></label>' +
+            '<label class="field">New password<input name="newPassword" type="password" autocomplete="new-password" required></label>' +
+            '<label class="field">Confirm new password<input name="confirmPassword" type="password" autocomplete="new-password" required></label>' +
+            '<button class="button" type="submit">Save password</button>' +
+            '</form></div></div></section>';
+        }
+
+        function renderChatRow(chatId, chat) {
+          const name = chat.type === "private"
+            ? chat.members.find(member => member !== state.user) || chat.name
+            : chat.name;
+          const message = latestMessage(chatId);
+          const unread = unreadCount(chatId);
+          const preview = message
+            ? (message.from === state.user ? "You: " : "") + message.text
+            : (chat.type === "group" ? "Group conversation" : "Start a conversation");
+          const badge = unread ? '<span class="badge">' + unread + '</span>' : "";
+      
+          return '<button class="chat-item" data-action="open" data-id="' + escapeHtml(chatId) + '">' +
+            '<span class="avatar">' + escapeHtml(initials(name)) + '</span>' +
+            '<span class="chat-info"><span class="chat-name">' + escapeHtml(name) + '</span>' +
+            '<span class="chat-preview">' + escapeHtml(preview) + '</span></span>' +
+            '<span class="chat-meta">' + formatTime(message && message.time) + badge + '</span></button>';
+        }
+      
+        function renderGroupModal() {
+          const otherUsers = Object.keys(getUsers()).filter(name => name !== state.user);
+          const memberOptions = otherUsers.length
+            ? otherUsers.map(name =>
+              '<label class="member-option"><input type="checkbox" name="members" value="' +
+              escapeHtml(name) + '">' + escapeHtml(name) + '</label>'
+            ).join("")
+            : '<div class="empty">Create another account in this browser before making a group.</div>';
+      
+          return '<div class="modal-backdrop"><section class="modal" role="dialog" aria-modal="true">' +
+            '<h2>Create a group</h2><p class="muted">Choose a name and at least one other account.</p>' +
+            '<form id="group-form"><label class="field">Group name<input name="name" maxlength="40" required placeholder="e.g. Weekend plans"></label>' +
+            '<div class="section-heading">Members</div>' + memberOptions +
+            '<div class="modal-actions"><button class="button secondary" type="button" data-action="cancel">Cancel</button>' +
+            '<button class="button">Create group</button></div></form></section></div>';
+        }
+      
+        function renderMenu() {
+          const allMeta = getMeta();
+          const allUsers = Object.keys(getUsers());
+          const query = state.query.trim().toLowerCase();
+          const chatIds = Object.keys(allMeta)
+            .filter(chatId => (allMeta[chatId].members || []).includes(state.user))
+            .sort((first, second) =>
+              ((latestMessage(second) || {}).time || 0) - ((latestMessage(first) || {}).time || 0)
+            );
+          const visibleChats = chatIds.filter(chatId => {
+            const chat = allMeta[chatId];
+            const name = chat.type === "private"
+              ? chat.members.find(member => member !== state.user) || chat.name
+              : chat.name;
+            return !query || name.toLowerCase().includes(query);
+          });
+          const people = query
+            ? allUsers.filter(name => name !== state.user &&
+              name.toLowerCase().includes(query) && !privateChatId(name, allMeta))
+            : [];
+          const peopleMarkup = people.map(name =>
+            '<button class="chat-item" data-action="private" data-user="' + escapeHtml(name) + '">' +
+            '<span class="avatar">' + escapeHtml(initials(name)) + '</span>' +
+            '<span class="chat-info"><span class="chat-name">' + escapeHtml(name) + '</span>' +
+            '<span class="chat-preview">Start a private chat</span></span><span class="chat-meta">＋</span></button>'
+          ).join("");
+          const chatMarkup = visibleChats.map(chatId => renderChatRow(chatId, allMeta[chatId])).join("");
+      
+          root.innerHTML = '<section class="screen">' +
+            renderHeader("Your chats", "Signed in as " + state.user, false) +
+            '<div class="content"><form id="search-form" class="search-row">' +
+            '<input class="search-input" name="query" value="' + escapeHtml(state.query) + '" placeholder="Search chats or people" aria-label="Search chats or people">' +
+            '<button class="button">Search</button></form>' +
+            (people.length ? '<div class="section-heading">People</div><div class="chat-list">' + peopleMarkup + '</div>' : "") +
+            '<div class="section-heading"><span>' + (query ? "Chats" : "Recent chats") + '</span>' +
+            '<button type="button" class="button secondary" data-action="group">＋ New group</button></div>' +
+            (visibleChats.length
+              ? '<div class="chat-list">' + chatMarkup + '</div>'
+              : '<div class="empty">' + (query ? "No matching chats or people." : "No conversations yet. Search for a person to start one.") + '</div>') +
+            '</div></section>';
+      
+          if (state.modal) root.insertAdjacentHTML("beforeend", renderGroupModal());
+        }
+      
+        function renderChat() {
+          const chat = getMeta()[state.chat];
+          if (!chat) {
+            state.page = "menu";
+            render();
+            return;
+          }
+      
+          const name = chat.type === "private"
+            ? chat.members.find(member => member !== state.user) || chat.name
+            : chat.name;
+          const messageMarkup = messagesForChat(state.chat).map(message => {
+            const isMine = message.from === state.user;
+            const isRead = isMine && chat.members.some(member =>
+              member !== state.user &&
+              ((getSeen()[member] || {})[state.chat] || 0) >= message.time
+            );
+            const sender = isMine ? "" : '<div class="message-sender">' + escapeHtml(message.from) + '</div>';
+            const status = isMine ? (isRead ? " · Read" : " · Sent") : "";
+            return '<article class="message' + (isMine ? ' mine' : '') + '">' + sender +
+              '<div class="message-text">' + escapeHtml(message.text) + '</div>' +
+              '<div class="message-time">' + formatTime(message.time) + status + '</div></article>';
+          }).join("");
+      
+          root.innerHTML = '<section class="screen">' +
+            renderHeader(name, chat.type === "group" ? chat.members.length + " members" : "Private chat on this device", true) +
+            '<div class="chat-body"><div class="message-list" id="message-list">' +
+            (messageMarkup || '<div class="empty">No messages yet. Say hello.</div>') +
+            '</div><form class="compose" id="message-form">' +
+            '<textarea class="message-input" name="text" rows="1" maxlength="4000" placeholder="Write a message…" aria-label="Write a message"></textarea>' +
+            '<button class="send-button" aria-label="Send message">➤</button></form></div></section>';
+      
+          const messageList = document.getElementById("message-list");
+          messageList.scrollTop = messageList.scrollHeight;
+        }
+      
+        function render() {
+          if (state.page === "login") renderLogin();
+          else if (state.page === "chat") renderChat();
+          else if (state.page === "settings") renderSettings();
+          else renderMenu();
+        }
+      
+        function openChat(chatId) {
+          state.chat = chatId;
+          state.page = "chat";
+          markChatSeen(chatId);
+          render();
+        }
+      
+        function startPrivateChat(username) {
+          const allMeta = getMeta();
+          const existingId = privateChatId(username, allMeta);
+          if (existingId) return openChat(existingId);
+      
+          const chatId = "private_" + Date.now() + "_" + Math.random().toString(36).slice(2, 7);
+          allMeta[chatId] = { type: "private", name: username, members: [state.user, username] };
+          if (save("chatMeta", allMeta)) openChat(chatId);
+        }
+      
+        root.addEventListener("submit", event => {
+          event.preventDefault();
+          const form = event.target;
+      
+          if (form.id === "login-form") {
+            const data = new FormData(form);
+            const username = String(data.get("username") || "").trim();
+            const password = String(data.get("password") || "");
+            const mode = event.submitter && event.submitter.dataset.mode;
+            const allUsers = getUsers();
+            if (!username || !password) return;
+      
+            if (mode === "register") {
+              if (allUsers[username]) return alert("That username already exists in this browser.");
+              allUsers[username] = { password };
+              if (save("users", allUsers)) alert("Account created. You can now log in.");
+              return;
+            }
+      
+            if (!allUsers[username] || allUsers[username].password !== password) {
+              return alert("Username or password is incorrect.");
+            }
+            state.user = username;
+            state.page = "menu";
+            state.query = "";
+            render();
+          } else if (form.id === "search-form") {
+            state.query = String(new FormData(form).get("query") || "").trim();
+            render();
+          } else if (form.id === "message-form") {
+            const text = String(new FormData(form).get("text") || "").trim();
+            if (!text) return;
+            const allChats = getChats();
+            allChats.push({ chatId: state.chat, from: state.user, text, time: Date.now() });
+            if (save("chats", allChats)) {
+              markChatSeen(state.chat);
+              render();
+              root.querySelector(".message-input").focus();
+            }
+          } else if (form.id === "group-form") {
+            const data = new FormData(form);
+            const name = String(data.get("name") || "").trim();
+            const members = [state.user].concat(data.getAll("members").map(String));
+            if (!name || members.length < 2) {
+              return alert("Choose a name and at least one other member.");
+            }
+      
+            const allMeta = getMeta();
+            const chatId = "group_" + Date.now() + "_" + Math.random().toString(36).slice(2, 7);
+            allMeta[chatId] = { type: "group", name, members };
+            if (save("chatMeta", allMeta)) {
+              state.modal = false;
+              openChat(chatId);
+            }
+          }
+        });
+      
+        root.addEventListener("click", event => {
+          const control = event.target.closest("[data-action]");
+          if (!control) return;
+      
+          const action = control.dataset.action;
+          if (action === "toggle-menu") {
+            state.menuOpen = !state.menuOpen;
+            render();
+          } else if (action === "settings") {
+            state.menuOpen = false;
+            state.page = "settings";
+            render();
+          } else if (action === "logout") {
+            state.menuOpen = false;
+            state.user = "";
+            state.page = "login";
+            state.query = "";
+            render();
+          } else if (action === "open") {
+            openChat(control.dataset.id);
+          } else if (action === "private") {
+            startPrivateChat(control.dataset.user);
+          } else if (action === "back") {
+            state.page = "menu";
+            state.modal = false;
+            render();
+          } else if (action === "group") {
+            state.modal = true;
+            render();
+          } else if (action === "cancel") {
+            state.modal = false;
+            render();
+          }
+        });
+      
+        window.addEventListener("storage", render);
+        render();
+      }());
+    </script>
+  </body>
+</html>

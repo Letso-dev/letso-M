@@ -1,19 +1,262 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Blog</title>
-</head>
-<body>
-<section>
-  <h2>About Me</h2>
-  <p>My name is Letso Mabeo, I am a student at Botswana School of Business Sciences (BAC) and I am studying under the course Network Systems Engineering.</p>
-</section>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Letso Mabeo | Digital Portfolio</title>
+  <style>
+    :root {
+      --navy: #14283f;
+      --teal: #087e83;
+      --gold: #f2b84b;
+      --cream: #fffaf0;
+      --white: #ffffff;
+      --text: #263746;
+      --muted: #5d6b76;
+      --black: #000000;
+    }
 
-<section>
-  <h2>My Skills and Projects</h2>
-  <p>I have experience working with HTML and JavaScript, they are all self taught and im willing to learn and adapt to new programming languages.
-  I have only one project to showcase, it has two different variations, one is meant to fit mobile phones and the other to fit on desktop. 
-  The file names are 'SecureChat' and 'SecureChat - Desktop'.</p>
-</section>
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--cream);
+      color: var(--text);
+      font-family: Arial, sans-serif;
+      line-height: 1.7;
+    }
+
+    header {
+      padding: 56px 20px 36px;
+      text-align: center;
+      color: var(--white);
+      background: linear-gradient(135deg, var(--navy), var(--teal));
+    }
+
+    header h1 {
+      margin: 0;
+      color: var(--white);
+      font-size: clamp(2.2rem, 6vw, 3.5rem);
+    }
+
+    header p {
+      margin: 8px 0 22px;
+      font-size: 1.1rem;
+      color: var(--gold);
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    nav a {
+      padding: 8px 13px;
+      border: 1px solid rgba(255, 255, 255, 0.55);
+      border-radius: 20px;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    nav a:hover,
+    nav a:focus {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: var(--navy);
+    }
+
+    main {
+      width: min(960px, 92%);
+      margin: 35px auto;
+    }
+
+    section {
+      margin: 24px 0;
+      padding: 26px;
+      border-radius: 14px;
+      background: var(--white);
+      box-shadow: 0 5px 18px rgba(20, 40, 63, 0.08);
+    }
+
+    h2 {
+      margin-top: 0;
+      padding-bottom: 8px;
+      border-bottom: 3px solid var(--gold);
+      color: var(--teal);
+    }
+
+    h3 {
+      color: var(--navy);
+    }
+
+    .tag {
+      display: inline-block;
+      margin: 4px;
+      padding: 5px 11px;
+      border-radius: 18px;
+      background: #e4f3f1;
+      color: var(--teal);
+      font-size: 0.9rem;
+      font-weight: bold;
+    }
+
+    .project {
+      margin-top: 16px;
+      padding: 18px;
+      border-left: 5px solid var(--gold);
+      border-radius: 8px;
+      background: #f7faf9;
+    }
+
+    a {
+      color: var(--teal);
+    }
+
+    .button {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 10px 16px;
+      border-radius: 6px;
+      background: var(--teal);
+      color: var(--white);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .button:hover,
+    .button:focus {
+      background: var(--navy);
+    }
+
+    footer {
+      padding: 22px;
+      text-align: center;
+      background: var(--navy);
+      color: var(--white);
+    }
+
+    footer a {
+      color: var(--gold);
+    }
+
+    @media (max-width: 600px) {
+      section {
+        padding: 20px;
+      }
+
+      nav a {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Letso Mabeo</h1>
+    <p>Digital Portfolio | Network Systems Engineering</p>
+    <nav>
+      <a href="#about">About Me</a> |
+      <a href="#cv">CV</a> |
+      <a href="#reflections">My Reflections</a> |
+      <a href="#projects">MySkills and Projects</a> |
+      <a href="#application">Application Letter</a> |
+      <a href="#email">Email Template</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="about">
+      <h2>About Me</h2>
+      <p>My name is Letso Mabeo, I am a student at Botswana School of Business Sciences (BAC)
+         and I am studying under the course Network Systems Engineering.</p>
+    </section>
+
+    <section id="cv">
+      <h2>CV </h2>
+      <p>I have relative experience with various programming languages, from creating my first web application.
+        For more information, click the link down below to download my CV.
+      </p>
+      <p><a href="https://github.com/Letso-dev/letso-M/blob/main/Letso%20Mabeo%20CV.pdf">View or download my CV</a></p>
+    </section>
+
+    <section id="reflections">
+      <h2>My Academic Journey</h2>
+      <p>
+        Currently, I am in my first year of study at Botswana School of Business Sciences (BAC), pursuing a degree in Network Systems Engineering.
+        I have been learning about various aspects of networking, including network protocols, security, and system administration.
+        Through the use of CISCO tools such as Packet Tracer, I have also been working on projects that involve designing and implementing network solutions, which has helped me develop practical skills in the field.
+        I have also been learning about programming languages such as HTML and JavaScript, which has allowed me to create web applications and gain a better understanding of how networks and systems interact with one another.
+        Part of my academic journey has also involved working on group projects, which has helped me develop teamwork and communication skills, as well as the ability to work effectively in a collaborative environment.
+        At the end of my first year, I will have gained a solid foundation in networking and systems engineering, which will prepare me for more advanced coursework and practical experience in the field.
+        My academic journey has been challenging, but also rewarding, and I am excited to continue learning and growing as a network systems engineer.
+        These micro-projects have given me a better understanding of how HTML and JavaScript work.
+        I also learned how to use GitHub to manage and share my code with others, which has been a valuable skill in the field of software development.
+        The micro-projects have also helped me develop problem-solving skills, as I have had to troubleshoot issues and find solutions to challenges that arise during the development process.
+        One of the biggest adjustments for me was managing a busier timeble. 
+        At first I found this difficult because I am used to a flexible timetable which allowed me some spare time but now, in tertiary level, I have realised that I have to manage my time well so that I am able to achieve my non-academic goals. 
+      </p>
+
+      <h2>Group Work Reflection</h2>
+      <p>
+        My group began with the forming stage, where we got to know each other and established our goals and objectives for the project.</p>
+
+        <p>During the storming stage we encountered some challenges and conflicts, but we were able to work through the issues and establish a more effective way of working together. 
+        One of the challenges we faced was communication, as we had different ideas and opinions about how to approach the project. 
+        However, we were able to overcome this by actively listening to each other and finding common ground.</p>
+
+        <p>In the norming stage, we established clear roles and responsibilities, and developed a sense of trust and respect for each other. 
+        We also established a more structured approach to our work, which helped us to be more efficient and affective in our collaboration.</p>
+
+        <p>In the performing stage, we were able to work together effectively and achieve our goals. 
+        We were able to leverage each other's strengths and skills to produce high-quality work and deliver a successful project. 
+        We also learned to communicate more effectively and provide constructive feedback to each other, which helped us to improve our work and achieve better results.</p>
+
+        <p>Finally, in the adjourning stage we reflected on our experience and celebrated our successes. 
+        We also discussed areas for improvement and identified ways to apply what we learned to future projects. 
+        Overall, our group experience was a valuable learning opportnity that helped us to develop important skills such as communication, collaboration, and problem-solving, which will be useful in our future careers.</p>
+      
+    </section>
+
+    <section id="projects">
+      <h2>Skills and Projects</h2>
+      <article>
+        <h3>SecureChat</h3>
+        <p>SecureChat, this is my very first attempt at creating a secure messaging application. 
+          To create this app, I used HTML and JavaScript. 
+          I learned about the importance of security in web development and how to implement basic security measures, i also learned how to handle user authentication and authorization. 
+          I have made two different variations, one for mobile devices and one for desktops. 
+          They only work locally at the moment, but with some time they will work globally.
+          The link to the project can be found below. After clicking the link, you will be directed to the project page, once you're done, you click the download button.</p>
+        <p><a href="https://github.com/Letso-dev/letso-M/blob/main/SecureChat.html">SecureChat</a></p>
+        <p><a href="https://github.com/Letso-dev/letso-M/blob/main/SecureChat%20Desktop.html">SecureChat Desktop</a></p>
+      </article>
+    
+    </section>
+
+    <section id="application">
+      <h2>Industrial Attachment Application Letter</h2>
+      <p><a href="https://github.com/Letso-dev/letso-M/blob/main/Industrial%20Attachment%20Application%20Letter.pdf">Attachment Application Lettser</a></p>
+    </section>
+
+    <section id="email">
+      <h2>Professional Email Template</h2>
+      <p><strong>Subject:</strong> Industrial Attachment Enquiry</p>
+      <p>Dear Hiring Manager,</p>
+      <p>My name is Letso Mabeo, and I am studying Network Systems Engineering at Botswana School of Business Sciences. I am writing to enquire about the possibility of completing an industrial attachment with you organisation.</p>
+      <p>I am inteerested in gaining practical experience in networks developmen. Through my studies and projects, I have been developing skills in programming and web development. I would welcome the opportunity to contribute to your organisation while learning from your team.</p>
+      <p>I have attachend my CV for your consideration. Please let me know if you require any further information or documents.</p>
+      <p>Kind regards,<br>Letso Mabeo</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>Contact: letsomaboesebetso@gmail.com</p>
+  </footer>
+</body>
+</html>
